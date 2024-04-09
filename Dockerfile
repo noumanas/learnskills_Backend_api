@@ -1,7 +1,7 @@
 FROM node:16-alpine
 
 # Install Puppeteer's dependencies
-RUN apk add --no-cache \
+RUN apk add --no-cache \    
 
 # Set up the working directory
 WORKDIR /usr/src/app

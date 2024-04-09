@@ -12,13 +12,12 @@ const corsOptions = {
     origin: 'http://localhost:3000', // Allow only the frontend origin
     optionsSuccessStatus: 200 // For legacy browser support
   };
-  
+  require('dotenv').config(); 
   app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
-// Connect to MongoDB
-mongoose.connect('mongodb+srv://noumanas:Hami1234@cluster0.qr9wprj.mongodb.net/LearnSkill?&authSource=admin')
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected successfully');
   })
