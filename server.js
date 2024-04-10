@@ -2,17 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userController = require('./controllers/userController');
-
+require('dotenv').config(); 
 const app = express();
-const port = 8000;
+const port = 9000;
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 // CORS configuration for development
 const corsOptions = {
-    origin: 'http://localhost:3000', // Allow only the frontend origin
+    origin: process.env.WhitelistURL, // Allow only the frontend origin
     optionsSuccessStatus: 200 // For legacy browser support
   };
-  require('dotenv').config(); 
   app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
@@ -56,5 +55,5 @@ app.get('/earnings/:id',userController.earningGetById);
 
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on ${port}`);
 });
