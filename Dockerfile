@@ -4,7 +4,7 @@ FROM node:16-alpine
 RUN apk add --no-cache \    
 
 # Set up the working directory
-WORKDIR /usr/src/app
+WORKDIR /
 
 # Copy the package.json and package-lock.json files
 COPY package*.json ./
