@@ -9,7 +9,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 // CORS configuration for development
 const corsOptions = {
-    origin: process.env.WhitelistURL, // Allow only the frontend origin
+    origin: 'https://learnskills-jz7e8.ondigitalocean.app', // Allow only the frontend origin
     optionsSuccessStatus: 200 // For legacy browser support
   };
   app.use(cors(corsOptions));
