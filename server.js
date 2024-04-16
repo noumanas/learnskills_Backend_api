@@ -8,10 +8,16 @@ const port = 9000;
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 // CORS configuration for development
-const corsOptions = {
-    origin: 'https://learnskills-jz7e8.ondigitalocean.app', // Allow only the frontend origin
-    optionsSuccessStatus: 200 // For legacy browser support
-  };
+var whitelist = ['https://learnskills-jz7e8.ondigitalocean.app', 'https://learnskills-jz7e8.ondigitalocean.app/pages']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
   app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
