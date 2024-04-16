@@ -22,13 +22,15 @@ var corsOptions = {
 
 app.use(bodyParser.json());
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('MongoDB connected successfully');
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
-  });
+const connectDB = async () => {
+  try {
+      await mongoose.connect(process.env.MONGODB_URI, {});
+      console.log("CONNECTED TO DATABASE SUCCESSFULLY");
+  } catch (error) {
+      console.error('COULD NOT CONNECT TO DATABASE:', error.message);
+  }
+};
+
 // Hypothetical middleware for authentication
 const authenticateToken = (req, res, next) => {
     // Extract token from request headers
@@ -59,7 +61,7 @@ app.get('/earnings/:id',cors(corsOptions),userController.earningGetById);
 
 
 
-
+connectDB();
 app.listen(port, () => {
   console.log(`Server is running on ${port}`);
 });
