@@ -1,7 +1,14 @@
 FROM node:16-alpine
 
 # Install Puppeteer's dependencies
-RUN apk add --no-cache \    
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    freetype-dev \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont
 
 # Set up the working directory
 WORKDIR /usr/src/app
@@ -17,3 +24,4 @@ COPY . .
 
 # Start the application
 CMD ["npm", "start"]
+
