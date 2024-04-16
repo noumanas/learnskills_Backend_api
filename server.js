@@ -44,12 +44,12 @@ const authenticateToken = (req, res, next) => {
         next();
     });
 };
-app.post('/register', userController.registerUser);
-app.post('/login', userController.loginUser);
-app.get('/user-info', authenticateToken, userController.UserInfo);
-app.post('/referral-info', authenticateToken, userController.referralInfo);
-app.post('/earnings',userController.earnings);
-app.get('/earnings/:id',userController.earningGetById);
+app.post('/register', cors(corsOptions) ,userController.registerUser);
+app.post('/login', cors(corsOptions),userController.loginUser);
+app.get('/user-info',cors(corsOptions), authenticateToken, userController.UserInfo);
+app.post('/referral-info',cors(corsOptions), authenticateToken, userController.referralInfo);
+app.post('/earnings',cors(corsOptions),userController.earnings);
+app.get('/earnings/:id',cors(corsOptions),userController.earningGetById);
 
 
 
