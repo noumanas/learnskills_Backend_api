@@ -37,13 +37,14 @@ class UserServices {
     }
 
     async earnings(data) {
-        console.log('data',data)
         try {
             // Create a new earnings document
             const newEarnings = new Earnings({
                 user: data.userId, // Assuming user ID is provided in userData
                 email: data.email, // Assuming email is provided in userData
-                todayEarnings: data.todayEarnings // Assuming today's earnings are provided in userData
+                todayEarnings: data.todayEarnings, // Assuming today's earnings are provided in userData
+                balance: data.balance // Assuming today's earnings are provided in userData
+
             });
 
             // Save earnings document
