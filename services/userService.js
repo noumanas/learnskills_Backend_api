@@ -82,7 +82,9 @@ class UserServices {
 
             // Generate token
             const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' });
-
+            if(user.status === "Pending"){
+                throw new Error('Your Account is not Activate');
+            }
             return { user, token };
         } catch (error) {
             throw error;
