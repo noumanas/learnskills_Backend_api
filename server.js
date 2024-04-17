@@ -6,9 +6,10 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const userController = require('./controllers/userController');
 const bodyParser = require('body-parser');
+const authenticateToken = require('./authMiddleware'); 
 require("dotenv").config();
 // CORS configuration for development
-var whitelist = ['https://learnskills-jz7e8.ondigitalocean.app', 'https://learnskills-jz7e8.ondigitalocean.app/pages']
+var whitelist = ['https://learnskills-jz7e8.ondigitalocean.app', 'https://learnskills-jz7e8.ondigitalocean.app/pages', "http://localhost:3000"]
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -30,13 +31,13 @@ const connectDB = async () => {
 };
 app.post('/register', cors(corsOptions) ,userController.registerUser);
 app.post('/login', cors(corsOptions),userController.loginUser);
-app.get('/user-info',cors(corsOptions), userController.UserInfo);
-app.post('/referral-info',cors(corsOptions), userController.referralInfo);
+app.get('/user-info',cors(corsOptions),authenticateToken, userController.UserInfo);
+app.post('/referral-info',cors(corsOptions),authenticateToken, userController.referralInfo);
 app.post('/earnings',cors(corsOptions),userController.earnings);
 app.get('/earnings/:id',cors(corsOptions),userController.earningGetById);
 
 app.get("/", (req, res) => {
-    res.send("Song State API Live!")
+    res.send("server is live")
 });
 
 // app.get('/stats/:id', async (req, res) => {
