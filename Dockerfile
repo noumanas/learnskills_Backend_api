@@ -1,27 +1,19 @@
-FROM node:16-alpine
+FROM node:16
 
-# Install Puppeteer's dependencies
-RUN apk add --no-cache \
-    chromium \
-    nss \
-    freetype \
-    freetype-dev \
-    harfbuzz \
-    ca-certificates \
-    ttf-freefont
-
-# Set up the working directory
+# Create app directory
 WORKDIR /usr/src/app
 
-# Copy the package.json and package-lock.json files
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
 COPY package*.json ./
 
-# Install the dependencies
-RUN npm ci
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
 
-# Copy the rest of the application files
+# Bundle app source
 COPY . .
 
-# Start the application
-CMD ["npm", "start"]
-
+EXPOSE 8080
+CMD [ "node", "server.js" ]
