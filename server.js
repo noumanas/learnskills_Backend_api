@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const authenticateToken = require('./authMiddleware'); 
 require("dotenv").config();
 // CORS configuration for development
-var whitelist = ['https://learnskills-jz7e8.ondigitalocean.app', 'https://learnskills-jz7e8.ondigitalocean.app/pages', "http://localhost:3000"]
+var whitelist = ['https://learnskills-jz7e8.ondigitalocean.app', 'https://learnskills-jz7e8.ondigitalocean.app/pages', "http://localhost:3000",'https://learnskills.pro']
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
