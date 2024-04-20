@@ -112,8 +112,16 @@ class UserServices {
             if (!user) {
                 throw new Error('referralCode not found');
             }
+            if(user.role =='admin'){
+                const user = await User.find();
+                return { user };
 
-            return { user };
+            }
+            else{
+                return { user };
+
+            }
+
         } catch (error) {
             throw error;
         }
