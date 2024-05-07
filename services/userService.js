@@ -128,15 +128,14 @@ class UserServices {
             throw error;
         }
     }
-    async getDailyincome(_id) {
+    async getDailyincome(userId) {
         try {
             // Find user by email
-            const dailyincomeData = await Dailyincome.find({ user:_id });
+            const dailyincomeData = await Dailyincome.findOne({ user:userId });
             if (!dailyincomeData) {
                 throw new Error('income is not find');
             }
-            const res =  dailyincomeData.dailyIncome;
-            return {res}
+            return {dailyincomeData}
            
         } catch (error) {
             throw error;
