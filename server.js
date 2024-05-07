@@ -38,6 +38,8 @@ app.get('/user-info',cors(corsOptions),authenticateToken, userController.UserInf
 app.post('/referral-info',cors(corsOptions),authenticateToken, userController.referralInfo);
 app.post('/earnings',cors(corsOptions),userController.earnings);
 app.get('/earnings/:id',cors(corsOptions),userController.earningGetById);
+app.get('/dailyincome/:id',cors(corsOptions),userController.getDailyincome);
+
 
 app.get("/", (req, res) => {
     res.send("server is live")

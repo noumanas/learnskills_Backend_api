@@ -2,6 +2,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const Earnings = require('../models/earning')
+const Dailyincome = require('../models/dailyincome')
+
 
 class UserServices {
     constructor() {}
@@ -126,7 +128,20 @@ class UserServices {
             throw error;
         }
     }
-    
+    async getDailyincome(_id) {
+        try {
+            // Find user by email
+            const dailyincomeData = await Dailyincome.find({ user:_id });
+            if (!dailyincomeData) {
+                throw new Error('income is not find');
+            }
+            const res =  dailyincomeData.dailyIncome;
+            return {res}
+           
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = new UserServices();

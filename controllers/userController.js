@@ -54,6 +54,15 @@ async function loginUser(req, res) {
         
     }
   }
+  async function getDailyincome(req, res){
+    try {
+        const userId = req.params.id; 
+      const data = await userService.getDailyincome(userId);
+      res.status(201).json(data);
+    } catch (error) {
+        
+    }
+  }
 module.exports = {
   registerUser,
   loginUser,
@@ -61,4 +70,5 @@ module.exports = {
   referralInfo,
   earnings,
   earningGetById,
+  getDailyincome,
 };
