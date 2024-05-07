@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 const userController = require('./controllers/userController');
 const bodyParser = require('body-parser');
 const authenticateToken = require('./authMiddleware'); 
+const Dailyincome = require("./models/dailyincome");
+const User = require("./models/user");
+const cron = require('node-cron');
 require("dotenv").config();
 // CORS configuration for development
 var whitelist = ['https://learnskills-jz7e8.ondigitalocean.app', 'https://learnskills-jz7e8.ondigitalocean.app/pages', "http://localhost:3000",'https://learnskills.pro']
@@ -39,7 +42,46 @@ app.get('/earnings/:id',cors(corsOptions),userController.earningGetById);
 app.get("/", (req, res) => {
     res.send("server is live")
 });
+cron.schedule('0 0 * * *', async () => {
+  try {
 
+
+    const users = await User.find({}, '_id');
+
+    // Iterate over the users
+    for (const user of users) {
+      // Check if the user already has an entry for today in the Earning collection
+      const existingEarning = await Dailyincome.findOne({
+        user: user._id
+      });
+
+      // If an entry exists, update the dailyIncome field
+      if (existingEarning) {
+        const updateData ={ 
+          amount: 0,
+          date: new Date(),
+        }
+        Dailyincome.dailyIncome.push(updateData);
+        await existingEarning.save();
+      } else {
+        // If no entry exists for today, create a new one
+        const updateData ={ 
+          amount: 0,
+          date: new Date(),
+        }
+        const newEarning = new Dailyincome({
+          user: user._id,
+          dailyIncome:updateData// Current date
+        });
+        await newEarning.save();
+      }
+    }
+
+    console.log('Daily income updated for all users.');
+  } catch (error) {
+    console.error('Error updating daily income:', error);
+  }
+});
 // app.get('/stats/:id', async (req, res) => {
 //     try {
 //         const id = req.params.id;
