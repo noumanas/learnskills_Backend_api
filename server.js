@@ -44,7 +44,7 @@ app.get('/dailyincome/:id',cors(corsOptions),userController.getDailyincome);
 app.get("/", (req, res) => {
     res.send("server is live")
 });
-cron.schedule('0 0 * * *', async () => {
+cron.schedule('0 1 * * *', async () => {
   try {
 
 
@@ -63,7 +63,7 @@ cron.schedule('0 0 * * *', async () => {
           amount: 0,
           date: new Date(),
         }
-        Dailyincome.dailyIncome.push(updateData);
+        existingEarning.dailyIncome.push(updateData);
         await existingEarning.save();
       } else {
         // If no entry exists for today, create a new one

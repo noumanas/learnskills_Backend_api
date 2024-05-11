@@ -9,17 +9,6 @@ const dailyincomeSchema = new mongoose.Schema({
     required: true,
   },
   dailyIncome: [
-    {
-      amount: {
-        type: Number,
-        required: true,
-      },
-      date: {
-        type: Date,
-        required: true,
-        default: Date.now,
-      },
-    }
   ],
 });
 
