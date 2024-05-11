@@ -46,7 +46,7 @@ const upload = multer({
   }),
 });
 
-
+app.use('/public',cors(corsOptions), express.static(path.join(__dirname, 'public')));
 app.post('/register', cors(corsOptions) ,userController.registerUser);
 app.post('/login',userController.loginUser);
 app.get('/user-info',cors(corsOptions),authenticateToken, userController.UserInfo);
