@@ -117,7 +117,7 @@ class UserServices {
             const uploadDir = path.join(__dirname, 'public', 'uploads'); // Path to public folder; // Path to save the image // Save the image
     
             // Update the user's profile with the image filename (or URL if you're using relative paths)
-            user.profile = `/uploads/${image.filename}`; // Assuming 'images' is the folder where images are stored
+            user.profile = `/${image.filename}`; // Assuming 'images' is the folder where images are stored
             await user.save();
 
             return { user };
