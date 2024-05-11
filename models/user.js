@@ -77,6 +77,9 @@ const userSchema = new mongoose.Schema({
     default:'user'// Generates a 6-digit random number
     // Ensure the referral code is unique
   },
+  profile:{
+    type:String,
+  },
   createdDate: { // New field for recording the date of creation
     type: Date,
     default: Date.now // Sets the default value to the current date and time

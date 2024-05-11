@@ -27,6 +27,16 @@ async function loginUser(req, res) {
       res.status(500).json({ error: error.message });
     }
   }
+  async function updateUserInfo(req, res) {
+    try {
+      const userData = req.userId;
+      const file = req.file
+      const user = await userService.updateUserInfo(userData,file);
+      res.status(201).json(user);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
   async function UserInfo(req, res) {
     try {
       const userData = req.userId;
@@ -71,4 +81,5 @@ module.exports = {
   earnings,
   earningGetById,
   getDailyincome,
+  updateUserInfo,
 };

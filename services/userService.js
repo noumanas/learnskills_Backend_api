@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const Earnings = require('../models/earning')
 const Dailyincome = require('../models/dailyincome')
-
-
+const fs = require('fs');
+const path = require('path');
 class UserServices {
     constructor() {}
 
@@ -100,6 +100,25 @@ class UserServices {
             if (!user) {
                 throw new Error('User not found');
             }
+            const imagePath = path.join(__dirname, 'public', 'uploads', user.profile);
+            return { user,imagePath };
+        } catch (error) {
+            throw error;
+        }
+    }
+    async updateUserInfo(id,image) {
+        try {
+            // Find user by email
+            const user = await User.findOne({ _id:id  });
+            if (!user) {
+                throw new Error('User not found');
+            }
+            // Save the image to the public folder
+            const uploadDir = path.join(__dirname, 'public', 'uploads'); // Path to public folder; // Path to save the image // Save the image
+    
+            // Update the user's profile with the image filename (or URL if you're using relative paths)
+            user.profile = `/uploads/${image.filename}`; // Assuming 'images' is the folder where images are stored
+            await user.save();
 
             return { user };
         } catch (error) {

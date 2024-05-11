@@ -10,6 +10,8 @@ const authenticateToken = require('./authMiddleware');
 const Dailyincome = require("./models/dailyincome");
 const User = require("./models/user");
 const cron = require('node-cron');
+const multer = require('multer');
+const path = require('path');
 require("dotenv").config();
 // CORS configuration for development
 var whitelist = ['https://learnskills-jz7e8.ondigitalocean.app', 'https://learnskills-jz7e8.ondigitalocean.app/pages', "http://localhost:3000",'https://learnskills.pro']
@@ -32,9 +34,24 @@ const connectDB = async () => {
       console.error('COULD NOT CONNECT TO DATABASE:', error.message);
   }
 };
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(__dirname, 'public', 'uploads')); // Specify the upload directory
+    },
+    filename: function (req, file, cb) {
+      // Generate a unique filename
+      cb(null, `${Date.now()}-${file.originalname}`);
+    },
+  }),
+});
+
+
 app.post('/register', cors(corsOptions) ,userController.registerUser);
-app.post('/login', cors(corsOptions),userController.loginUser);
+app.post('/login',userController.loginUser);
 app.get('/user-info',cors(corsOptions),authenticateToken, userController.UserInfo);
+app.post('/user-info-updates',cors(corsOptions),authenticateToken,upload.single('image'), userController.updateUserInfo);
+
 app.post('/referral-info',cors(corsOptions),authenticateToken, userController.referralInfo);
 app.post('/earnings',cors(corsOptions),userController.earnings);
 app.get('/earnings/:id',cors(corsOptions),userController.earningGetById);
