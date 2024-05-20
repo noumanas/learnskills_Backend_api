@@ -79,6 +79,7 @@ const userSchema = new mongoose.Schema({
   },
   profile:{
     type:String,
+    default:""
   },
   createdDate: { // New field for recording the date of creation
     type: Date,
