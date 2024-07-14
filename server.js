@@ -14,7 +14,7 @@ const multer = require('multer');
 const path = require('path');
 require("dotenv").config();
 // CORS configuration for development
-var whitelist = ['https://learnskills-jz7e8.ondigitalocean.app', 'https://learnskills-jz7e8.ondigitalocean.app/pages', "http://localhost:3000",'https://learnskills.pro',"https://learnskills.pro/login"]
+var whitelist = ['https://learnskills-jz7e8.ondigitalocean.app', 'https://learnskills-jz7e8.ondigitalocean.app/pages', "http://localhost:3000",'https://learnskills.pro',"https://learnskills.pro/pages"]
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
